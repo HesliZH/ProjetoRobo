@@ -1,9 +1,25 @@
+#include <AFMotor.h>
+#include <Ultrassonic.h>
+
+
+AF_DCMotor motor1(1);
+AF_DCMotor motor2(2);
+
+/*Definir posição e portas utilizadas*/
+//Ultrassonic Distancia();
+
+
 void setup() {
-  // put your setup code here, to run once:
+    motor1.setSpeed(255);
+    motor2.setSpeed(255);
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  //Lógica
 
+
+
+  
+  çç
 }

@@ -10,7 +10,8 @@ AF_DCMotor motor2(4);
 /*Definir posição e portas utilizadas*/
 Ultrasonic Distancia(53, 52);
 int SensorLinha = 51;
-
+long tempo;
+  
 
 void setup() {
     motor1.setSpeed(255);
@@ -21,30 +22,47 @@ void setup() {
     pinMode(SensorLinha, INPUT);
 }
 
-void loop() {
-  //Lógica
+void loop() { 
+    
+
+
+    ProcuraOponente();
+     
+}
+
+void ProcuraOponente(){
   float cm;
-  long tempo = Distancia.timing();
-
-
-  //Código para localizar o oponente
-
-  while(cm >= 15){
+  tempo = Distancia.timing();
+    
+  bool Encontrado = false;
+ 
+  if(Encontrado == false){
+     cm = Distancia.convert(tempo, Ultrasonic::CM);
+     
       motor1.run(FORWARD);
-      motor2.run(BACKWARD);
-    }
+      motor2.run(BACKWARD);   
+      Serial.println(cm);
+      if(cm <= 15){
+        motor1.run(RELEASE);
+            motor2.run(RELEASE);
+           Lutar(cm);
+      }
+  }  
+}
 
-  //Caso localize o oponente irá acelerar os motores
+
+void Lutar(float cm){
   if(cm <= 15){
-      motor1.run(FORWARD);
-      motor2.run(FORWARD);
-      if(digitalRead(SensorLinha) == HIGH){
+        motor1.run(FORWARD);
+        motor2.run(FORWARD);
+  }else{
+      
+      
+     /* if(digitalRead(SensorLinha) == HIGH){
             motor1.run(RELEASE);
             motor2.run(RELEASE);
-        }
-    }
-/* Código da linha preta*/
+        }*/
+    return ProcuraOponente();
+  }
 
-  
-  
 }
